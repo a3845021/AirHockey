@@ -7,11 +7,12 @@
 #include "GameSprite.h"
 
 class GameScene : public cocos2d::Scene {
+
     GameSprite *playerOne;
     GameSprite *playerTwo;
     GameSprite *ball;
 
-    std::vector<GameSprite> playerVector;
+    cocos2d::Vector<GameSprite*> playerVector;
     cocos2d::Label *scoreLabelPlayerOne;
     cocos2d::Label *scoreLabelPlayerTwo;
 
@@ -22,25 +23,16 @@ class GameScene : public cocos2d::Scene {
     void updatePlayerScore(int player);
 
 public:
-
     GameScene();
-
     virtual ~GameScene();
-
     static cocos2d::Scene *createScene();
-
     virtual bool init();
-
-//    void onTouchesBegan(const std::vector<cocos2d::Touch*> &touches, cocos2d::Event* event);
-//    void onTouchesMoved(const std::vector<cocos2d::Touch*> &touches, cocos2d::Event* event);
-//    void onTouchesEnded(const std::vector<cocos2d::Touch*> &touches, cocos2d::Event* event);
-//
-//    void update(float dt);
-
+    void onTouchesBegan(const std::vector<cocos2d::Touch *> &touches, cocos2d::Event *event);
+    void onTouchesMoved(const std::vector<cocos2d::Touch *> &touches, cocos2d::Event *event);
+    void onTouchesEnded(const std::vector<cocos2d::Touch *> &touches, cocos2d::Event *event);
+    void update(float dt);
     // implement the "static create()" method manually
     CREATE_FUNC(GameScene);
-
-
 };
 
 #endif

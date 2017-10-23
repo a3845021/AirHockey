@@ -7,6 +7,11 @@ GameScene::GameScene() {}
 
 GameScene::~GameScene() {
     playerVector.clear();
+    CC_SAFE_DELETE(playerOne);
+    CC_SAFE_DELETE(playerTwo);
+    CC_SAFE_DELETE(ball);
+    CC_SAFE_DELETE(scoreLabelPlayerOne);
+    CC_SAFE_DELETE(scoreLabelPlayerTwo);
 }
 
 Scene *GameScene::createScene() {
@@ -27,7 +32,7 @@ bool GameScene::init() {
         return false;
     }
 
-    playerVector = std::vector<GameSprite>(2);
+    playerVector = cocos2d::Vector<GameSprite *>(2);
     scorePlayerOne = 0;
     scorePlayerTwo = 0;
     screenSize = Director::getInstance()->getWinSize();
@@ -36,6 +41,16 @@ bool GameScene::init() {
     imageCourt->setPosition(Vec2(screenSize.width * 0.5, screenSize.height * 0.5));
     this->addChild(imageCourt);
 
+    playerOne = GameSprite::gameSpriteWithFile("assets/res/GameScene/img_player.png");
+    playerOne->setPosition(cocos2d::Vec2(screenSize.width / 2, playerOne->radius() * 2));
+    playerVector.pushBack(playerOne);
+    this->addChild(playerOne);
+
+    playerTwo = GameSprite::gameSpriteWithFile("assets/res/GameScene/img_player.png");
+    playerTwo->setPosition(
+            cocos2d::Vec2(screenSize.width / 2, screenSize.height - playerTwo->radius() * 2));
+    playerVector.pushBack(playerTwo);
+    this->addChild(playerTwo);
 
     Size visibleSize = Director::getInstance()->getVisibleSize();
     Point origin = Director::getInstance()->getVisibleOrigin();
@@ -50,5 +65,24 @@ bool GameScene::init() {
 
 
     return true;
+}
+
+void
+GameScene::onTouchesBegan(const std::vector<cocos2d::Touch *> &touches, cocos2d::Event *event) {
+//todo
+}
+
+void
+GameScene::onTouchesMoved(const std::vector<cocos2d::Touch *> &touches, cocos2d::Event *event) {
+//todo
+}
+
+void
+GameScene::onTouchesEnded(const std::vector<cocos2d::Touch *> &touches, cocos2d::Event *event) {
+//todo
+}
+
+void GameScene::update(float dt) {
+    //Node::update(dt);
 }
 

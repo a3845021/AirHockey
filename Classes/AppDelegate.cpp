@@ -68,7 +68,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
 //    glview->setDesignResolutionSize(designResolutionSize.width, designResolutionSize.height, ResolutionPolicy::EXACT_FIT);
     glview->setDesignResolutionSize(768,  // 4/3 aspect ratio
                                     1024,
-                                    ResolutionPolicy::EXACT_FIT);
+                                    ResolutionPolicy::SHOW_ALL);
     // if the frame's height is larger than the height of medium size.
     director->setContentScaleFactor(2);
     register_all_packages();
