@@ -25,7 +25,8 @@ public:
 
     virtual void setPosition(const cocos2d::Vec2 &pos) override;
 
-    float radius;
+    float radius();
+
 };
 
 #endif //__GAME_SPRITE_H__
