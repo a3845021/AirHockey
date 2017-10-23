@@ -52,6 +52,10 @@ bool GameScene::init() {
     playerVector.pushBack(playerTwo);
     this->addChild(playerTwo);
 
+    ball = GameSprite::gameSpriteWithFile("assets/res/GameScene/img_puck.png");
+    ball->setPosition(cocos2d::Vec2(screenSize.width/2, screenSize.height/2));
+    this->addChild(ball);
+
     Size visibleSize = Director::getInstance()->getVisibleSize();
     Point origin = Director::getInstance()->getVisibleOrigin();
 
