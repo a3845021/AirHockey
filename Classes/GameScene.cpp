@@ -62,13 +62,13 @@ bool GameScene::init() {
     scoreLabelPlayerOne = cocos2d::Label::createWithTTF("0", "assets/fonts/arial.ttf", 60);
     scoreLabelPlayerOne->setPosition(
             cocos2d::Vec2(screenSize.width - 60, screenSize.height * 0.5f - 80));
-    scoreLabelPlayerOne->setRotation(180);
+    scoreLabelPlayerOne->setRotation(270);
     this->addChild(scoreLabelPlayerOne);
 
     scoreLabelPlayerTwo = cocos2d::Label::createWithTTF("0", "assets/fonts/arial.ttf", 60);
     scoreLabelPlayerTwo->setPosition(
             cocos2d::Vec2(screenSize.width - 60, screenSize.height * 0.5f + 80));
-    scoreLabelPlayerTwo->setRotation(180);
+    scoreLabelPlayerTwo->setRotation(270);
     this->addChild(scoreLabelPlayerTwo);
 
     //preload music
