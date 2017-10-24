@@ -45,30 +45,30 @@ bool GameScene::init() {
     this->addChild(imageCourt);
 
     playerOne = GameSprite::gameSpriteWithFile("assets/res/GameScene/img_player.png");
-    playerOne->setPosition(cocos2d::Vec2(screenSize.width / 2, playerOne->radius() * 2));
+    playerOne->setPosition(cocos2d::Vec2(screenSize.width * 0.5f, playerOne->radius() * 2));
     playerVector.pushBack(playerOne);
     this->addChild(playerOne);
 
     playerTwo = GameSprite::gameSpriteWithFile("assets/res/GameScene/img_player.png");
     playerTwo->setPosition(
-            cocos2d::Vec2(screenSize.width / 2, screenSize.height - playerTwo->radius() * 2));
+            cocos2d::Vec2(screenSize.width * 0.5f, screenSize.height - playerTwo->radius() * 2));
     playerVector.pushBack(playerTwo);
     this->addChild(playerTwo);
 
     ball = GameSprite::gameSpriteWithFile("assets/res/GameScene/img_puck.png");
-    ball->setPosition(cocos2d::Vec2(screenSize.width / 2, screenSize.height / 2));
+    ball->setPosition(cocos2d::Vec2(screenSize.width * 0.5f, screenSize.height * 0.5f));
     this->addChild(ball);
 
     scoreLabelPlayerOne = cocos2d::Label::createWithTTF("0", "assets/fonts/arial.ttf", 60);
     scoreLabelPlayerOne->setPosition(
-            cocos2d::Vec2(screenSize.width - 60, screenSize.height / 2 - 80));
-    scoreLabelPlayerOne->setRotation(90);
+            cocos2d::Vec2(screenSize.width - 60, screenSize.height * 0.5f - 80));
+    scoreLabelPlayerOne->setRotation(180);
     this->addChild(scoreLabelPlayerOne);
 
     scoreLabelPlayerTwo = cocos2d::Label::createWithTTF("0", "assets/fonts/arial.ttf", 60);
     scoreLabelPlayerTwo->setPosition(
-            cocos2d::Vec2(screenSize.width - 60, screenSize.height / 2 + 80));
-    scoreLabelPlayerTwo->setRotation(90);
+            cocos2d::Vec2(screenSize.width - 60, screenSize.height * 0.5f + 80));
+    scoreLabelPlayerTwo->setRotation(180);
     this->addChild(scoreLabelPlayerTwo);
 
     //preload music
@@ -90,8 +90,7 @@ bool GameScene::init() {
     return true;
 }
 
-void
-GameScene::onTouchesBegan(const std::vector<cocos2d::Touch *> &touches, cocos2d::Event *event) {
+void GameScene::onTouchesBegan(const std::vector<cocos2d::Touch *> &touches, cocos2d::Event *event) {
     for (auto touch : touches) {
         if (touch != nullptr) {
             auto tapLocation = touch->getLocation();
@@ -106,8 +105,7 @@ GameScene::onTouchesBegan(const std::vector<cocos2d::Touch *> &touches, cocos2d:
     }
 }
 
-void
-GameScene::onTouchesMoved(const std::vector<cocos2d::Touch *> &touches, cocos2d::Event *event) {
+void GameScene::onTouchesMoved(const std::vector<cocos2d::Touch *> &touches, cocos2d::Event *event) {
     //loop through all moving touches
     for (auto touch : touches) {
         if (touch != nullptr) {
@@ -131,15 +129,15 @@ GameScene::onTouchesMoved(const std::vector<cocos2d::Touch *> &touches, cocos2d:
                         nextPosition.y = screenSize.height - player->radius();
 
                     //keep player inside its court
-                    if (player->getPosition().y < screenSize.height / 2) {
+                    if (player->getPosition().y < screenSize.height * 0.5f) {
                         //player one
-                        if (nextPosition.y > screenSize.height / 2 - player->radius()) {
-                            nextPosition.y = screenSize.height / 2 - player->radius();
+                        if (nextPosition.y > screenSize.height * 0.5f - player->radius()) {
+                            nextPosition.y = screenSize.height * 0.5f - player->radius();
                         }
                     } else {
                         //player two
-                        if (nextPosition.y < screenSize.height / 2 + player->radius()) {
-                            nextPosition.y = screenSize.height / 2 + player->radius();
+                        if (nextPosition.y < screenSize.height * 0.5f + player->radius()) {
+                            nextPosition.y = screenSize.height * 0.5f + player->radius();
                         }
                     }
 
@@ -230,8 +228,8 @@ void GameScene::update(float dt) {
     }
     //ball and top of the court
     if (ballNextPosition.y > screenSize.height - ball->radius()) {
-        if (ball->getPosition().x < screenSize.width / 2 - GOAL_WIDTH / 2 ||
-            ball->getPosition().x > screenSize.width / 2 + GOAL_WIDTH / 2) {
+        if (ball->getPosition().x < screenSize.width * 0.5f - GOAL_WIDTH * 0.5f ||
+            ball->getPosition().x > screenSize.width * 0.5f + GOAL_WIDTH * 0.5f) {
             ballNextPosition.y = screenSize.height - ball->radius();
             ballVector.y *= -0.8f;
             CocosDenshion::SimpleAudioEngine::getInstance()->playEffect(
@@ -240,8 +238,8 @@ void GameScene::update(float dt) {
     }
     //ball and bottom of the court
     if (ballNextPosition.y < ball->radius()) {
-        if (ball->getPosition().x < screenSize.width / 2 - GOAL_WIDTH / 2 ||
-            ball->getPosition().x > screenSize.width / 2 + GOAL_WIDTH / 2) {
+        if (ball->getPosition().x < screenSize.width * 0.5f - GOAL_WIDTH * 0.5f ||
+            ball->getPosition().x > screenSize.width * 0.5f + GOAL_WIDTH * 0.5f) {
             ballNextPosition.y = ball->radius();
             ballVector.y *= -0.8f;
             CocosDenshion::SimpleAudioEngine::getInstance()->playEffect(
@@ -281,7 +279,7 @@ void GameScene::updatePlayerScore(int player) {
                 String::createWithFormat("%i", scorePlayerOne)->getCString());
         //move ball to player 2 court
         ball->setNextPosition(
-                Vec2(screenSize.width / 2, screenSize.height / 2 + 2 * ball->radius()));
+                Vec2(screenSize.width * 0.5f, screenSize.height * 0.5f + 2 * ball->radius()));
 
         //if player 2 scored...
     } else {
@@ -291,12 +289,12 @@ void GameScene::updatePlayerScore(int player) {
                 String::createWithFormat("%i", scorePlayerTwo)->getCString());
         //move ball to player 1 court
         ball->setNextPosition(
-                Vec2(screenSize.width / 2, screenSize.height / 2 - 2 * ball->radius()));
+                Vec2(screenSize.width * 0.5f, screenSize.height * 0.5f - 2 * ball->radius()));
 
     }
     //move players to original position
-    playerOne->setPosition(Vec2(screenSize.width / 2, playerOne->radius() * 2));
-    playerTwo->setPosition(Vec2(screenSize.width / 2, screenSize.height - playerOne->radius() * 2));
+    playerOne->setPosition(Vec2(screenSize.width * 0.5f, playerOne->radius() * 2));
+    playerTwo->setPosition(Vec2(screenSize.width * 0.5f, screenSize.height - playerOne->radius() * 2));
 
     //clear current touches
     playerOne->setTouch(nullptr);
